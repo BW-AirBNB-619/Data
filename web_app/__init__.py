@@ -1,10 +1,10 @@
 import os
-
+from web_app.routes.home_routes import home_routes
 from flask import Flask
 
 def create_app():
     app = Flask(__name__)
-
+    app.register_blueprint(home_routes)
     return app
 
 
