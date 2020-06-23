@@ -1,6 +1,8 @@
 from flask import Flask
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    return app
 
 
 @app.route("/")
@@ -9,4 +11,5 @@ def index():
     
 
 if __name__ == '__main__':
-    app.run()
+    my_app=create_app()
+    my_app.run(debug=True)
