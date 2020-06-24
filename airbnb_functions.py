@@ -7,6 +7,19 @@ Original file is located at
     https://colab.research.google.com/drive/1f0DB42apYxbub-wLKby7i2lfzYnffMpa
 """
 
+from google.colab import files
+uploaded = files.upload()
+
+import pandas as pd
+import numpy as np
+
+# Read CSV
+df = pd.read_csv("AB_NYC_2019.csv")
+
+# CHECK:
+print(df.shape)
+df.head()
+
 !pip install category_encoders
 
 from sklearn.model_selection import train_test_split
@@ -29,6 +42,18 @@ def preprocessing(df):
   """
   # Copying DF
   dfx = df.copy()
+
+  ## EDA
+  # Dropping Columns
+  dfx.drop(columns=["host_name", "last_review", "reviews_per_month"], inplace = True)
+
+  # Removing -- Custom Outliers
+  dfx = dfx[(dfx["price"] > 0) & 
+            (dfx["price"] < 10000)]
+  
+  # New Column -- 'log_price'
+  dfx["log_price"] = np.log(dfx["price"].values)
+
 
   # Target and Features
   target = "log_price"
@@ -83,11 +108,11 @@ def preprocessing(df):
 
 
 # Calling Function
-X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(dfx)
+X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(df)
 
 
-# CHECK:
-X_train_df.head()
+# # CHECK:
+# X_train_df.head()
 
 from xgboost import XGBRegressor
 
