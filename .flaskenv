@@ -1,0 +1,2 @@
+FLASK_APP=web_app/create_app.py
+FLASK_ENV=development
