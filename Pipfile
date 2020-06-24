@@ -37,6 +37,7 @@ swapi = "*"
 py-openaq = "*"
 joblib = "*"
 pickle = "*"
+xgboost = "*"
 
 [requires]
 python_version = "3.7"
