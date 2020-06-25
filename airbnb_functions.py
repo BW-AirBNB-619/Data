@@ -92,7 +92,8 @@ def preprocessing(df):
   
   # Mapping - 'room_type'
   room_type_dict = {"Shared room":1, "Private room":2, "Entire home/apt":3}
-  X["room_type"] = X["room_type"].map(room_type_dict)
+  X.iloc[:, 4].map(room_type_dict)
+  # X["room_type"] = X["room_type"].map(room_type_dict)
   # print(X["room_type"])
 
   # Train Test Split

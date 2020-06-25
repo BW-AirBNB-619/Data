@@ -32,9 +32,8 @@ def prediction():
     X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(new_df)
     pred = rfr_function(X_train, y_train)
     
-    series = pd.Series(pred).rename("Price")
-
-    return series.to_json(orient='records')
+    preddf = pd.DataFrame(pred)
+    return preddf.to_json(orient='records')
     
 
 
