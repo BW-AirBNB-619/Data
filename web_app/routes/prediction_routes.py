@@ -31,7 +31,7 @@ def prediction():
                    number_of_reviews, calculated_host_listings_count, availability_365, df) 
 
     X_train, y_train = preprocessing(new_df)
-    model = load(open("rfr_model.pkl", "r+b"))
+    model = load("rfr_model.pkl", "rb")
     prediction = predict(X_train, model)
     
     preddf = pd.DataFrame(prediction)
