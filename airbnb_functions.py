@@ -144,12 +144,20 @@ def rfr_function(X_train, y_train):
   rfr = RandomForestRegressor()
   
   # Fit
-  rfr.fit(X_train[:-1], y_train[:-1])
+  model = rfr.fit(X_train[:-1], y_train[:-1])
   
   # Training Prediction
-  train_pred = rfr.predict([X_train[-1]])
+  # train_pred = rfr.predict([X_train[-1]])
+
+  return model
+
+def predict(X_train, model):
+  train_pred = model.predict([X_train[-1]])
 
   return np.exp(train_pred)
+
+
+  # return np.exp(train_pred)
 
 # prediction = rfr_function(X_train, y_train)
 
