@@ -2,7 +2,8 @@ from flask import Blueprint, render_template
 from flask import Flask, request, jsonify
 from airbnb_functions import preprocessing, rfr_function, accum, predict
 import requests
-import pandas as pd 
+import pandas as pd
+from _pickle import load
 
 
 
