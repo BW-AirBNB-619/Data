@@ -125,7 +125,7 @@ def preprocessing(df):
 
 
 # Calling Function
-X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(info)
+# X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(info)
 
 
 # # CHECK:
@@ -156,9 +156,9 @@ def rfr_function(X_train, y_train):
 
   return np.exp(train_pred)
 
-prediction = rfr_function(X_train, y_train)
+# prediction = rfr_function(X_train, y_train)
 
-prediction
+# prediction
 
 # Defining Function
 def df_maker(y_vector, y_pred_vector):
