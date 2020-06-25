@@ -32,7 +32,7 @@ def prediction():
     X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(new_df)
     pred = rfr_function(X_train, y_train)
     
-    preddf = pd.DataFrame(preddf)
+    preddf = pd.DataFrame(pred)
     return preddf.to_json(orient='records')
     
 
