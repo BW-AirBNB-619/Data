@@ -7,6 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1f0DB42apYxbub-wLKby7i2lfzYnffMpa
 """
 
+from google.colab import files
+uploaded = files.upload()
 
 import pandas as pd
 import numpy as np
@@ -15,9 +17,10 @@ import numpy as np
 df = pd.read_csv("AB_NYC_2019.csv")
 
 # CHECK:
-# print(df.shape)
-# df.head()
+print(df.shape)
+df.head()
 
+!pip install category_encoders
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
@@ -45,9 +48,13 @@ def accum(neighbourhood_group, neighbourhood, latitude,	longitude, room_type,	mi
     
     return new_df
 
-# info = accum("Staten Island", "Port Richmond", 40.615542, -74.14331, "Private room", 10, 0, 0, 60, df)
-# info.tail()
+info = accum("Staten Island", "Port Richmond", 40.615542, -74.14331, "Private room", 10, 0, 0, 60, df)
+info.tail()
 
+
+
+import warnings
+warnings.filterwarnings('ignore')
 
 def preprocessing(df):
   """
@@ -93,8 +100,10 @@ def preprocessing(df):
   # Mapping - 'room_type'
   room_type_dict = {"Shared room":1, "Private room":2, "Entire home/apt":3}
   X.iloc[:, 4].map(room_type_dict)
-  # X["room_type"] = X["room_type"].map(room_type_dict)
-  # print(X["room_type"])
+  # room_series = pd.Series(X["room_type"])
+  # room_series_new = room_series.map({"Shared room":1, "Private room":2, "Entire home/apt":3})
+  # room_series = pd.DataFrame(room_series_new, columns=["room_type"])
+
 
   # Train Test Split
   X_train, X_test, y_train, y_test = train_test_split(X, y,
@@ -114,13 +123,19 @@ def preprocessing(df):
   # Create DataFrame for X Matrices
   X_train_df = pd.DataFrame(X_train, columns=features) 
   X_test_df = pd.DataFrame(X_test, columns=features)
+  print(X_train_df.shape,
+        X_test_df.shape, 
+        X_train.shape, 
+        X_test.shape, 
+        y_train.shape, 
+        y_test.shape)
 
-  # Return
-  return X_train_df, X_test_df, X_train, X_test, y_train, y_test
+  # Return: X_test_df, X_train, X_test, y_train, y_test
+  return X_train_df
 
 
 # Calling Function
-# X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(info)
+X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(info)
 
 
 # # CHECK:
@@ -146,22 +161,34 @@ def rfr_function(X_train, y_train):
   # Fit
   model = rfr.fit(X_train[:-1], y_train[:-1])
   
-  # Training Prediction
+  # # Training Prediction
   # train_pred = rfr.predict([X_train[-1]])
 
+  # Return: np.exp(train_pred)
   return model
 
+model = rfr_function(X_train, y_train)
+
+from google.colab import drive
+drive.mount('/content/gdrive')
+
+import pickle
+
+rfr_string = pickle.dumps(model)
+rfr_string
+
+with open('rfr_model.pkl', 'wb') as f:
+    pickle.dump(rfr, f)
+
 def predict(X_train, model):
+# Training Prediction
   train_pred = model.predict([X_train[-1]])
 
   return np.exp(train_pred)
 
+prediction = predict(X_train, model)
 
-  # return np.exp(train_pred)
-
-# prediction = rfr_function(X_train, y_train)
-
-# prediction
+prediction
 
 # Defining Function
 def df_maker(y_vector, y_pred_vector):
