@@ -14,14 +14,14 @@ def prediction():
     request_data = request.get_json(force=True)
     print(type(request_data))
     neighbourhood_group = request_data["neighbourhood_group"]
-    neighbourhood =request_data["neighbourhood"]
-    latitude =request_data["latitude"]
-    longitude =request_data["longitude"]
-    room_type =request_data["room_type"]
-    minimum_nights =request_data["minimum_nights"]
-    number_of_reviews =request_data["number_of_reviews"]
-    calculated_host_listings_count =request_data["calculated_host_listings_count"]
-    availability_365 =request_data["availability_365"]
+    neighbourhood = request_data["neighbourhood"]
+    latitude = request_data["latitude"]
+    longitude = request_data["longitude"]
+    room_type = request_data["room_type"]
+    minimum_nights = request_data["minimum_nights"]
+    number_of_reviews = request_data["number_of_reviews"]
+    calculated_host_listings_count = request_data["calculated_host_listings_count"]
+    availability_365 = request_data["availability_365"]
 
 
     df = pd.read_csv('AB_NYC_2019.csv')
