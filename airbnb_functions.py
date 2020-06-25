@@ -116,7 +116,7 @@ def preprocessing(df):
   X_test_df = pd.DataFrame(X_test, columns=features)
 
   # Return
-  return X_train_df, X_test_df, X_train, X_test, y_train, y_test
+  return X_train, y_train
 
 
 # Calling Function
