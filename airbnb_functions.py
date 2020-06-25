@@ -14,10 +14,6 @@ import numpy as np
 # Read CSV
 df = pd.read_csv("AB_NYC_2019.csv")
 
-# CHECK:
-# print(df.shape)
-# df.head()
-
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
@@ -44,9 +40,6 @@ def accum(neighbourhood_group, neighbourhood, latitude,	longitude, room_type,	mi
     new_df = pd.concat([df, info], axis=0)
     
     return new_df
-
-# info = accum("Staten Island", "Port Richmond", 40.615542, -74.14331, "Private room", 10, 0, 0, 60, df)
-# info.tail()
 
 
 def preprocessing(df):
@@ -93,8 +86,10 @@ def preprocessing(df):
   # Mapping - 'room_type'
   room_type_dict = {"Shared room":1, "Private room":2, "Entire home/apt":3}
   X.iloc[:, 4].map(room_type_dict)
-  # X["room_type"] = X["room_type"].map(room_type_dict)
-  # print(X["room_type"])
+  # room_series = pd.Series(X["room_type"])
+  # room_series_new = room_series.map({"Shared room":1, "Private room":2, "Entire home/apt":3})
+  # room_series = pd.DataFrame(room_series_new, columns=["room_type"])
+
 
   # Train Test Split
   X_train, X_test, y_train, y_test = train_test_split(X, y,
@@ -117,10 +112,6 @@ def preprocessing(df):
 
   # Return
   return X_train, y_train
-
-
-# Calling Function
-# X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(info)
 
 
 # # CHECK:
@@ -146,22 +137,19 @@ def rfr_function(X_train, y_train):
   # Fit
   model = rfr.fit(X_train[:-1], y_train[:-1])
   
-  # Training Prediction
+  # # Training Prediction
   # train_pred = rfr.predict([X_train[-1]])
 
+  # Return: np.exp(train_pred)
   return model
 
+
 def predict(X_train, model):
+# Training Prediction
   train_pred = model.predict([X_train[-1]])
 
   return np.exp(train_pred)
 
-
-  # return np.exp(train_pred)
-
-# prediction = rfr_function(X_train, y_train)
-
-# prediction
 
 # Defining Function
 def df_maker(y_vector, y_pred_vector):
