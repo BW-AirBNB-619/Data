@@ -52,7 +52,9 @@ def test():
             "calculated_host_listing_count": calculated_host_listing_count,
             "availability_365": availability_365}
 
-    URL = "http://127.0.0.1:5000/prediction"
+    # URL = "http://127.0.0.1:5000/prediction"
+
+    URL = "https://git.heroku.com/its-the-end-of-the-world.git"
 
     req = requests.post(URL, json=post)
     return req.text
