@@ -35,7 +35,7 @@ def prediction():
     return df.to_json(orient='records')
 
 
-@prediction_routes.route('/test', methods=['GET'])
+@prediction_routes.route('/test')
 def test():
     neighbourhood_group = "Staten Island" 
     neighbourhood = "Port Richmond"
@@ -54,7 +54,7 @@ def test():
 
     # URL = "http://127.0.0.1:5000/prediction"
 
-    URL = "https://git.heroku.com/its-the-end-of-the-world.git"
+    URL = "https://its-the-end-of-the-world.herokuapp.com/prediction"
 
     req = requests.post(URL, json=post)
     return req.text
