@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from flask import Flask, request, jsonify
-from airbnb_functions import preprocessing, rfr_function, df_maker
+from airbnb_functions import preprocessing, rfr_function, accum
 import requests
 import pandas as pd 
 
@@ -26,13 +26,13 @@ def prediction():
 
     df = pd.read_csv('AB_NYC_2019.csv')
 
-    X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(df)
+    new_df = accum(neighbourhood_group, neighbourhood, latitude, longitude, room_type, minimum_nights,
+                   number_of_reviews, calculated_host_listings_count, availability_365, df) 
+
+    X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(new_df)
     pred = rfr_function(X_train, y_train)
 
-    df = df_maker(y_train, pred)
-
-
-    return df.to_json(orient='records')
+    return pred.to_json(orient='records')
 
 
 @prediction_routes.route('/test')
