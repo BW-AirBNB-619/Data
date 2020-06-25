@@ -29,7 +29,7 @@ def prediction():
     new_df = accum(neighbourhood_group, neighbourhood, latitude, longitude, room_type, minimum_nights,
                    number_of_reviews, calculated_host_listings_count, availability_365, df) 
 
-    X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(new_df)
+    X_train, y_train = preprocessing(new_df)
     model = rfr_function(X_train, y_train)
     prediction = predict(X_train, model)
     
