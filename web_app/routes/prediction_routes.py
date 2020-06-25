@@ -35,7 +35,7 @@ def prediction():
     return pred.to_json(orient='records')
 
 
-@prediction_routes.route('/test')
+@prediction_routes.route('/test', methods=['GET'])
 def test():
     neighbourhood_group = "Staten Island" 
     neighbourhood = "Port Richmond"
