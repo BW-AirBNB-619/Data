@@ -15,8 +15,8 @@ import numpy as np
 df = pd.read_csv("AB_NYC_2019.csv")
 
 # CHECK:
-print(df.shape)
-df.head()
+# print(df.shape)
+# df.head()
 
 
 from sklearn.model_selection import train_test_split
@@ -114,12 +114,6 @@ def preprocessing(df):
   # Create DataFrame for X Matrices
   X_train_df = pd.DataFrame(X_train, columns=features) 
   X_test_df = pd.DataFrame(X_test, columns=features)
-  print(X_train_df.shape,
-        X_test_df.shape, 
-        X_train.shape, 
-        X_test.shape, 
-        y_train.shape, 
-        y_test.shape)
 
   # Return
   return X_train_df, X_test_df, X_train, X_test, y_train, y_test
