@@ -20,7 +20,7 @@ def prediction():
     room_type =request_data["room_type"]
     minimum_nights =request_data["minimum_nights"]
     number_of_reviews =request_data["number_of_reviews"]
-    calculated_host_listing_count =request_data["calculated_host_listing_count"]
+    calculated_host_listings_count =request_data["calculated_host_listings_count"]
     availability_365 =request_data["availability_365"]
 
 
@@ -44,12 +44,12 @@ def test():
     room_type = "Private room"
     minimum_nights = 10
     number_of_reviews = 0
-    calculated_host_listing_count = 0
+    calculated_host_listings_count = 0
     availability_365 = 60
     post = {"neighbourhood_group": neighbourhood_group, "neighbourhood": neighbourhood,
             "latitude": latitude, "longitude": longitude, "room_type": room_type,
             "minimum_nights": minimum_nights, "number_of_reviews": number_of_reviews,
-            "calculated_host_listing_count": calculated_host_listing_count,
+            "calculated_host_listings_count": calculated_host_listings_count,
             "availability_365": availability_365}
 
     # URL = "http://127.0.0.1:5000/prediction"
