@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from flask import Flask, request, jsonify
-from airbnb_functions import preprocessing, xgboost_function, df_maker
+from airbnb_functions import preprocessing, rfr_function, df_maker
 import requests
 import pandas as pd 
 
@@ -27,7 +27,7 @@ def prediction():
     df = pd.read_csv('AB_NYC_2019.csv')
 
     X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(df)
-    pred = xgboost_function(X_train, y_train)
+    pred = rfr_function(X_train, y_train)
 
     df = df_maker(y_train, pred)
 

@@ -18,7 +18,7 @@ df = pd.read_csv("AB_NYC_2019.csv")
 print(df.shape)
 df.head()
 
-
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -111,18 +111,17 @@ X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(df)
 # # CHECK:
 # X_train_df.head()
 
-from xgboost import XGBRegressor
 
-def xgboost_function(X_train, y_train):
+def rfr_function(X_train, y_train):
   
   # Instantiate Model
-  xgb = XGBRegressor()
+  rfr = RandomForestRegressor()
   
   # Fit
-  xgb.fit(X_train, y_train)
+  rfr.fit(X_train, y_train)
   
   # Training Prediction
-  train_pred = xgb.predict(X_train)
+  train_pred = rfr.predict(X_train)
   
   return train_pred
 
