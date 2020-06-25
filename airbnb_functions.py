@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1f0DB42apYxbub-wLKby7i2lfzYnffMpa
 """
 
-from google.colab import files
-uploaded = files.upload()
 
 import pandas as pd
 import numpy as np
@@ -20,7 +18,6 @@ df = pd.read_csv("AB_NYC_2019.csv")
 print(df.shape)
 df.head()
 
-!pip install category_encoders
 
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline

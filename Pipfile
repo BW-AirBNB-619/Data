@@ -38,6 +38,7 @@ py-openaq = "*"
 joblib = "*"
 pickle = "*"
 xgboost = "*"
+category-encoders = "*"
 
 [requires]
 python_version = "3.7"
