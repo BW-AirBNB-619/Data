@@ -7,6 +7,8 @@ Original file is located at
     https://colab.research.google.com/drive/1f0DB42apYxbub-wLKby7i2lfzYnffMpa
 """
 
+from google.colab import files
+uploaded = files.upload()
 
 import pandas as pd
 import numpy as np
@@ -18,13 +20,38 @@ df = pd.read_csv("AB_NYC_2019.csv")
 print(df.shape)
 df.head()
 
-from sklearn.ensemble import RandomForestRegressor
+!pip install category_encoders
+
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 import category_encoders as ce
 import pandas as pd
 import numpy as np
+
+def accum(neighbourhood_group, neighbourhood, latitude,	longitude, room_type,	minimum_nights,	number_of_reviews,	calculated_host_listings_count,	availability_365, df):
+    data = {"neighbourhood_group": neighbourhood_group,
+            "neighbourhood": neighbourhood,
+            "latitude": latitude,
+            "longitude": longitude,
+            "room_type": room_type,
+            "minimum_nights": minimum_nights,
+            "number_of_reviews": number_of_reviews,
+            "calculated_host_listings_count": calculated_host_listings_count,
+            "availability_365": availability_365}
+    
+    # Info DataFrame
+    info = pd.DataFrame(data, index=[0])
+
+    # Append
+    new_df = pd.concat([df, info], axis=0)
+    
+    return new_df
+
+info = accum("Staten Island", "Port Richmond", 40.615542, -74.14331, "Private room", 10, 0, 0, 60, df)
+info.tail()
+
+
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -105,12 +132,23 @@ def preprocessing(df):
 
 
 # Calling Function
-X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(df)
+X_train_df, X_test_df, X_train, X_test, y_train, y_test = preprocessing(info)
 
 
 # # CHECK:
 # X_train_df.head()
 
+# neighbourhood_group = "Staten Island" 
+#     neighbourhood = "Port Richmond"
+#     latitude = 40.615542
+#     longitude = -74.14331
+#     room_type = "Private room"
+#     minimum_nights = 10
+#     number_of_reviews = 0
+#     calculated_host_listing_count = 0
+#     availability_365 = 60
+
+from sklearn.ensemble import RandomForestRegressor
 
 def rfr_function(X_train, y_train):
   
@@ -118,12 +156,16 @@ def rfr_function(X_train, y_train):
   rfr = RandomForestRegressor()
   
   # Fit
-  rfr.fit(X_train, y_train)
+  rfr.fit(X_train[:-1], y_train[:-1])
   
   # Training Prediction
-  train_pred = rfr.predict(X_train)
-  
-  return train_pred
+  train_pred = rfr.predict([X_train[-1]])
+
+  return np.exp(train_pred)
+
+prediction = rfr_function(X_train, y_train)
+
+prediction
 
 # Defining Function
 def df_maker(y_vector, y_pred_vector):
