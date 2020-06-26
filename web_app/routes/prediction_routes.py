@@ -31,8 +31,9 @@ def prediction():
                    number_of_reviews, calculated_host_listings_count, availability_365, df) 
 
     X_train, y_train = preprocessing(new_df)
-    model = load(open("rfr_model.pkl", "r+b"))
-    prediction = predict(X_train, model)
+    loaded_model = pickle.load(open("rfr_model.pkl", "rb"))
+    # model = load(open("rfr_model.pkl", "r+b"))
+    prediction = predict(X_train, loaded_model)
     
     preddf = pd.DataFrame(prediction)
     return preddf.to_json(orient='records')
