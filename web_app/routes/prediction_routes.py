@@ -65,7 +65,7 @@ def test():
 
     # URL = "http://127.0.0.1:5000/prediction"
 
-    URL = "https://its-the-end-of-the-world.herokuapp.com/prediction"
+    URL = "https://airbnb-lambda.herokuapp.com/prediction"
 
     req = requests.post(URL, json=post)
     return req.text

@@ -11,7 +11,6 @@ Original file is located at
 import pandas as pd
 import numpy as np
 
-# Read CSV
 df = pd.read_csv("AB_NYC_2019.csv")
 
 
@@ -19,8 +18,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 import category_encoders as ce
-import pandas as pd
-import numpy as np
+
 
 def accum(neighbourhood_group, neighbourhood, latitude,	longitude, room_type,	minimum_nights,	number_of_reviews,	calculated_host_listings_count,	availability_365, df):
     data = {"neighbourhood_group": neighbourhood_group,
