@@ -65,4 +65,4 @@ SQLAlchemy = "==1.3.17"
 Werkzeug = "==1.0.1"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
