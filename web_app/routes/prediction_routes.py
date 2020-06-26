@@ -41,7 +41,7 @@ def prediction():
 
     model = load(open("rfr_model.pkl", "rb"))
     prediction = predict(X_train, model)
-    series = pd.Series(prediction).rename("Price")
+    series = pd.Series.rename("Price")
 
     return series.to_json(orient="records")
     
