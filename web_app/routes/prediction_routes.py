@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template
-from flask import Flask, request, jsonify
-from airbnb_functions import preprocessing, rfr_function, accum, predict
-import requests
+from flask import Blueprint
+from flask import Flask, request
 import pandas as pd
+from airbnb_functions import preprocessing, rfr_function, accum, predict
 from _pickle import load
+import requests
 
 
 
@@ -38,10 +38,11 @@ def prediction():
                    df) 
 
     X_train, y_train = preprocessing(new_df)
+
     model = load(open("rfr_model.pkl", "rb"))
     prediction = predict(X_train, model)
-    
     series = pd.Series(prediction).rename("Price")
+
     return series.to_json(orient="records")
     
 
@@ -63,10 +64,8 @@ def test():
             "calculated_host_listings_count": calculated_host_listings_count,
             "availability_365": availability_365}
 
-    # URL = "http://127.0.0.1:5000/prediction"
-
-    URL = "https://airbnb-lambda.herokuapp.com/prediction"
+    URL = "http://127.0.0.1:5000/prediction"
+    # URL = "https://airbnb-lambda.herokuapp.com/prediction"
 
     req = requests.post(URL, json=post)
     return req.text
-    
