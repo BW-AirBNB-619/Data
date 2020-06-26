@@ -13,7 +13,6 @@ prediction_routes = Blueprint('prediction_routes', __name__)
 @prediction_routes.route('/prediction', methods=['POST'])
 def prediction():
     request_data = request.get_json(force=True)
-    print(type(request_data))
     neighbourhood_group = request_data["neighbourhood_group"]
     neighbourhood = request_data["neighbourhood"]
     latitude = request_data["latitude"]
@@ -27,19 +26,27 @@ def prediction():
 
     df = pd.read_csv('AB_NYC_2019.csv')
 
-    new_df = accum(neighbourhood_group, neighbourhood, latitude, longitude, room_type, minimum_nights,
-                   number_of_reviews, calculated_host_listings_count, availability_365, df) 
+    new_df = accum(neighbourhood_group,
+                   neighbourhood,
+                   latitude,
+                   longitude,
+                   room_type,
+                   minimum_nights,
+                   number_of_reviews,
+                   calculated_host_listings_count,
+                   availability_365,
+                   df) 
 
     X_train, y_train = preprocessing(new_df)
     model = load(open("rfr_model.pkl", "rb"))
     prediction = predict(X_train, model)
     
-    preddf = pd.DataFrame(prediction)
-    return preddf.to_json(orient='records')
+    series = pd.Series(prediction).rename("Price")
+    return series.to_json(orient="records")
     
 
 
-@prediction_routes.route('/test', methods=['GET'])
+@prediction_routes.route('/test')
 def test():
     neighbourhood_group = "Staten Island" 
     neighbourhood = "Port Richmond"
