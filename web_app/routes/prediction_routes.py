@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from airbnb_functions import preprocessing, rfr_function, accum, predict
 import requests
 import pandas as pd
+import pickle
 from _pickle import load
 
 
@@ -31,7 +32,7 @@ def prediction():
                    number_of_reviews, calculated_host_listings_count, availability_365, df) 
 
     X_train, y_train = preprocessing(new_df)
-    loaded_model = _pickle.load(open("rfr_model.pkl", "rb"))
+    loaded_model = pickle.load(open("rfr_model.pkl", "rb"))
     # model = load(open("rfr_model.pkl", "r+b"))
     prediction = predict(X_train, loaded_model)
     
